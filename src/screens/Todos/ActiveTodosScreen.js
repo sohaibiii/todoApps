@@ -21,10 +21,24 @@ import styles from './styles/ActiveTodosStyles';
 import commonStyles from './styles';
 
 class ActiveTodosScreen extends Component {
+  state = {
+    time: new Date(),
+  };
   componentDidMount() {
     let {getAllTodos} = this.props;
     getAllTodos();
   }
+  getTime = time => {
+    this.setState({time});
+  };
+
+  addTodoMain = text => {
+    if (this.state.time == new Date()) {
+      alert('Select Time date');
+    } else {
+      this.props.addTodo(text);
+    }
+  };
   render() {
     const {todosReducer} = this.props;
     const {active} = todosReducer;
@@ -53,10 +67,10 @@ class ActiveTodosScreen extends Component {
                 config.constants.active_todos_screen
                   .add_todo_input_clear_text_on_focus
               }
-              onSubmitEditing={addTodo}
+              onSubmitEditing={this.addTodoMain}
             />
           </View>
-          <DateView />
+          <DateView getTime={this.getTime} />
         </View>
         <FlatList
           data={todos}

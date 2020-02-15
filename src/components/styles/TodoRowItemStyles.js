@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: ROW_HEIGHT,
   },
-  gittimeline: {
+  timeline: {
     height: ROW_HEIGHT,
     width: 8,
     justifyContent: 'center',
