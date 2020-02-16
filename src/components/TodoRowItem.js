@@ -22,7 +22,7 @@ class TodoRowItem extends Component {
   };
   render() {
     const {todo} = this.props;
-    const {text, time, id} = todo;
+    const {text, time, id, toCompleteTime} = todo;
 
     return (
       <View style={styles.row} key={todo.id}>
@@ -36,7 +36,7 @@ class TodoRowItem extends Component {
         </View>
         <View style={styles.content}>
           <Text style={styles.text}>{text}</Text>
-          <Text style={styles.time}>{time}</Text>
+          <Text style={styles.time}>{toCompleteTime} to Complete</Text>
         </View>
         {!this.props.completed && (
           <View style={styles.editIcon}>

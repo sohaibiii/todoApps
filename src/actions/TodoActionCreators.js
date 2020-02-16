@@ -1,6 +1,7 @@
 import config from '../config/index';
 import moment from 'moment';
 import {db} from '../config/firebase';
+import ReactNativeAN from 'react-native-alarm-notification';
 
 const actions = config.todos.actions;
 
@@ -30,8 +31,30 @@ export function addTodo(text, toCompleteTime) {
         completed: false,
         toCompleteTime: moment(toCompleteTime).format('YYYY-MM-DD HH:mm:ss'),
       })
-      .then(res => {
-        console.log('my res is here');
+      .then(docRef => {
+        // notify alaram for task
+
+        const alarmNotifData = {
+          id: docRef.id,
+          title: 'Your Task Alaram',
+          message: text,
+          channel: 'fyptodos11',
+          ticker: 'My Notification Ticker',
+          auto_cancel: false,
+          vibrate: true,
+          vibration: 100,
+          small_icon: 'ic_launcher',
+          large_icon: 'ic_launcher',
+          play_sound: true,
+          sound_name: null,
+          color: 'orange',
+          schedule_once: true,
+          tag: 'some_tag',
+          fire_date: moment(toCompleteTime).format('YYYY-MM-DD HH:mm:ss'),
+
+          data: {foo: text},
+        };
+        ReactNativeAN.scheduleAlarm(alarmNotifData);
       })
       .catch(err => {
         console.log('something wrong happend');
@@ -75,7 +98,8 @@ export function completeTodo(index, id) {
         completed: true,
         toCompleteTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       })
-      .then(() => {
+      .then(docRef => {
+        ReactNativeAN.deleteAlarm(docRef.id);
         console.log('success has been occured');
       })
       .catch(err => {
