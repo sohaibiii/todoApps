@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, ListView, FlatList, View, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -35,12 +36,27 @@ class ActiveTodosScreen extends Component {
   addTodoMain = text => {
     console.log('task Complete time', this.state.time);
 
-    if (
-      moment(this.state.time).format('YYYY-MM-DD HH:mm:ss') <
-      moment().format('YYYY-MM-DD HH:mm:ss')
-    ) {
-      alert('select future time');
-    } else this.props.addTodo(text, this.state.time);
+    // if (
+    //   moment(this.state.time).format('YYYY-MM-DD HH:mm:ss') >
+    //   moment().format('YYYY-MM-DD HH:mm:ss')
+    // ) {
+    //   alert('select future time');
+    // } else {
+    this.props.addTodo(text, this.state.time);
+
+    // notify alaram for task
+
+    RNCalendarEvents.saveEvent(text, {
+      startDate: new Date().toISOString(),
+      endDate: this.state.time.toISOString(),
+      alarms: [
+        {
+          date: 1,
+        },
+      ],
+    });
+
+    //}
   };
   render() {
     const {todosReducer} = this.props;

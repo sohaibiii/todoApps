@@ -179,6 +179,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-calendar-events')
     implementation project(':react-native-alarm-notification')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules

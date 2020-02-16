@@ -32,29 +32,7 @@ export function addTodo(text, toCompleteTime) {
         toCompleteTime: moment(toCompleteTime).format('YYYY-MM-DD HH:mm:ss'),
       })
       .then(docRef => {
-        // notify alaram for task
-
-        const alarmNotifData = {
-          id: docRef.id,
-          title: 'Your Task Alaram',
-          message: text,
-          channel: 'fyptodos11',
-          ticker: 'My Notification Ticker',
-          auto_cancel: false,
-          vibrate: true,
-          vibration: 100,
-          small_icon: 'ic_launcher',
-          large_icon: 'ic_launcher',
-          play_sound: true,
-          sound_name: null,
-          color: 'orange',
-          schedule_once: true,
-          tag: 'some_tag',
-          fire_date: moment(toCompleteTime).format('YYYY-MM-DD HH:mm:ss'),
-
-          data: {foo: text},
-        };
-        ReactNativeAN.scheduleAlarm(alarmNotifData);
+        console.log('hehh');
       })
       .catch(err => {
         console.log('something wrong happend');
@@ -98,9 +76,8 @@ export function completeTodo(index, id) {
         completed: true,
         toCompleteTime: moment().format('YYYY-MM-DD HH:mm:ss'),
       })
-      .then(docRef => {
-        ReactNativeAN.deleteAlarm(docRef.id);
-        console.log('success has been occured');
+      .then(() => {
+        console.log('dsfsf');
       })
       .catch(err => {
         console.log('something bad had happend');
