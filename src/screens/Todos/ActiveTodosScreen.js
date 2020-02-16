@@ -36,27 +36,22 @@ class ActiveTodosScreen extends Component {
   addTodoMain = text => {
     console.log('task Complete time', this.state.time);
 
-    // if (
-    //   moment(this.state.time).format('YYYY-MM-DD HH:mm:ss') >
-    //   moment().format('YYYY-MM-DD HH:mm:ss')
-    // ) {
-    //   alert('select future time');
-    // } else {
     this.props.addTodo(text, this.state.time);
 
     // notify alaram for task
+
+    console.log('my date is here guys', new Date().toISOString());
+    console.log('my other date is here guys', this.state.time.toISOString());
 
     RNCalendarEvents.saveEvent(text, {
       startDate: new Date().toISOString(),
       endDate: this.state.time.toISOString(),
       alarms: [
         {
-          date: 1,
+          date: this.state.time.toISOString(),
         },
       ],
     });
-
-    //}
   };
   render() {
     const {todosReducer} = this.props;

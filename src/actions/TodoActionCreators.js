@@ -1,27 +1,29 @@
 import config from '../config/index';
 import moment from 'moment';
-import {db} from '../config/firebase';
-import ReactNativeAN from 'react-native-alarm-notification';
+import {db, firebase} from '../config/firebase';
 
 const actions = config.todos.actions;
 
 export function getAllTodos() {
   return dispatch => {
-    db.collection('tasks').onSnapshot(function(querySnapshot) {
-      var tasks = [];
-      querySnapshot.forEach(function(doc) {
-        tasks.push({id: doc.id, ...doc.data()});
-      });
+    db.collection('tasks')
+      .orderBy('timeStamp', 'desc')
+      .onSnapshot(function(querySnapshot) {
+        var tasks = [];
+        querySnapshot.forEach(function(doc) {
+          tasks.push({id: doc.id, ...doc.data()});
+        });
 
-      dispatch({
-        type: actions.getTodos,
-        payload: tasks,
+        dispatch({
+          type: actions.getTodos,
+          payload: tasks,
+        });
       });
-    });
   };
 }
 
 export function addTodo(text, toCompleteTime) {
+  const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
   return dispatch => {
     db.collection('tasks')
       .add({
@@ -30,6 +32,7 @@ export function addTodo(text, toCompleteTime) {
         type: 'active',
         completed: false,
         toCompleteTime: moment(toCompleteTime).format('YYYY-MM-DD HH:mm:ss'),
+        timeStamp: timestamp,
       })
       .then(docRef => {
         console.log('hehh');
