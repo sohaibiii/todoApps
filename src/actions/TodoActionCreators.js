@@ -20,7 +20,7 @@ export function getAllTodos() {
   };
 }
 
-export function addTodo(text) {
+export function addTodo(text, toCompleteTime) {
   return dispatch => {
     db.collection('tasks')
       .add({
@@ -28,6 +28,7 @@ export function addTodo(text) {
         time: moment().format('YYYY-MM-DD HH:mm:ss'),
         type: 'active',
         completed: false,
+        toCompleteTime: moment(toCompleteTime).format('YYYY-MM-DD HH:mm:ss'),
       })
       .then(res => {
         console.log('my res is here');
@@ -70,7 +71,24 @@ export function completeTodo(index, id) {
   return dispatch => {
     db.collection('tasks')
       .doc(id)
-      .update({completed: true})
+      .update({
+        completed: true,
+        toCompleteTime: moment().format('YYYY-MM-DD HH:mm:ss'),
+      })
+      .then(() => {
+        console.log('success has been occured');
+      })
+      .catch(err => {
+        console.log('something bad had happend');
+      });
+  };
+}
+
+export function editTaskAction(id, text) {
+  return dispatch => {
+    db.collection('tasks')
+      .doc(id)
+      .update({text: text})
       .then(() => {
         console.log('success has been occured');
       })

@@ -33,11 +33,14 @@ class ActiveTodosScreen extends Component {
   };
 
   addTodoMain = text => {
-    if (this.state.time == new Date()) {
-      alert('Select Time date');
-    } else {
-      this.props.addTodo(text);
-    }
+    console.log('task Complete time', this.state.time);
+
+    if (
+      moment(this.state.time).format('YYYY-MM-DD HH:mm:ss') <
+      moment().format('YYYY-MM-DD HH:mm:ss')
+    ) {
+      alert('select future time');
+    } else this.props.addTodo(text, this.state.time);
   };
   render() {
     const {todosReducer} = this.props;
@@ -81,6 +84,7 @@ class ActiveTodosScreen extends Component {
             <SwipeView
               renderVisibleContent={() => (
                 <TodoRowItem
+                  editTaskAction={this.props.editTaskAction}
                   todo={{...item}}
                   index={index}
                   time={moment()

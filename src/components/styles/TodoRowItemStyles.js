@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const ROW_HEIGHT = 70;
 
@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: ROW_HEIGHT,
   },
+  editIcon: {
+    marginLeft: 40,
+  },
   timeline: {
     height: ROW_HEIGHT,
     width: 8,
@@ -23,13 +26,13 @@ const styles = StyleSheet.create({
     height: ROW_HEIGHT,
     width: 1,
     backgroundColor: '#526373',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   icon: {
     color: '#e7d629',
     backgroundColor: 'transparent',
     position: 'absolute',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   content: {
     flex: 1,
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: '400',
     color: '#828B7B',
-  }
+  },
 });
 
 export default styles;

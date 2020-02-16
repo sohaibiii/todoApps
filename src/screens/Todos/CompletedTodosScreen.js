@@ -49,6 +49,7 @@ class CompletedTodosScreen extends Component {
             <SwipeView
               renderVisibleContent={() => (
                 <TodoRowItem
+                 completed={true}
                   todo={{...item}}
                   index={index}
                   time={moment()
