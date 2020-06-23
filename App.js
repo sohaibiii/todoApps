@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 
 import NavContainer from './src/navigation/RootNavigation';
 import withProvider from './src/redux/withProvider';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 const App = () => {
   useEffect(() => {
