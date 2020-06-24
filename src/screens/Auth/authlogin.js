@@ -1,13 +1,18 @@
 // @flow
 import React, {Component} from 'react';
 
-import {Image, ImageBackground, Platform, StatusBar} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Platform,
+  StatusBar,
+  TextInput,
+} from 'react-native';
 import {
   Container,
   Content,
   Text,
   Item,
-  Input,
   Button,
   Icon,
   View,
@@ -76,14 +81,11 @@ class Login extends Component {
     return (
       <Container>
         <Header style={styles.header}>
-          <StatusBar
-            backgroundColor={'#526373'}
-            barStyle="light-content"
-          />
+          <StatusBar backgroundColor={'#526373'} barStyle="light-content" />
 
-          <Left></Left>
+          <Left />
 
-          <Right></Right>
+          <Right />
         </Header>
         <View style={styles.background}>
           <Content contentContainerStyle={{flex: 1}}>
@@ -99,8 +101,7 @@ class Login extends Component {
               <View style={styles.form}>
                 <View>
                   <Item rounded style={styles.inputGrp}>
-                    <Input
-                      ref={c => (this.textInput = c)}
+                    <TextInput
                       placeholderTextColor="gray"
                       style={styles.input}
                       placeholder="Your Email"
@@ -114,8 +115,7 @@ class Login extends Component {
 
                 <View>
                   <Item rounded style={styles.inputGrp}>
-                    <Input
-                      ref={c => (this.textInput = c)}
+                    <TextInput
                       placeholderTextColor="gray"
                       style={styles.input}
                       placeholder="password"
@@ -129,7 +129,11 @@ class Login extends Component {
                       active
                       type="MaterialIcons"
                       name="remove-red-eye"
-                      style={{color: '#526373'}}
+                      style={{
+                        color: '#526373',
+                        position: 'absolute',
+                        right: 20,
+                      }}
                       onPress={() =>
                         this.setState({secure: !this.state.secure})
                       }
@@ -188,6 +192,9 @@ const mapStateToProps = state => ({
   userStatus: state.user.userStatus,
 });
 
-export default connect(mapStateToProps, {
-  loginUser,
-})(Login);
+export default connect(
+  mapStateToProps,
+  {
+    loginUser,
+  },
+)(Login);

@@ -7,6 +7,7 @@ import {
   Platform,
   StatusBar,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import {
@@ -14,7 +15,6 @@ import {
   Content,
   Text,
   Item,
-  Input,
   Button,
   Icon,
   View,
@@ -43,7 +43,7 @@ class SignUp extends Component {
     loader: false,
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.userStatus) {
       this.setState({
         loader: false,
@@ -86,10 +86,7 @@ class SignUp extends Component {
     return (
       <Container>
         <Header style={styles.header}>
-          <StatusBar
-            backgroundColor={'#526373'}
-            barStyle="light-content"
-          />
+          <StatusBar backgroundColor={'#526373'} barStyle="light-content" />
 
           <Left>
             <Icon
@@ -100,7 +97,7 @@ class SignUp extends Component {
             />
           </Left>
 
-          <Right></Right>
+          <Right />
         </Header>
         <View style={styles.background}>
           <ScrollView>
@@ -125,8 +122,7 @@ class SignUp extends Component {
                 <View style={styles.form}>
                   <View>
                     <Item rounded style={styles.inputGrp}>
-                      <Input
-                        ref={c => (this.textInput = c)}
+                      <TextInput
                         placeholderTextColor="gray"
                         style={styles.input}
                         placeholder="Username"
@@ -138,8 +134,7 @@ class SignUp extends Component {
 
                   <View>
                     <Item rounded style={styles.inputGrp}>
-                      <Input
-                        ref={c => (this.textInput = c)}
+                      <TextInput
                         placeholderTextColor="gray"
                         style={styles.input}
                         placeholder="Your Email"
@@ -151,8 +146,7 @@ class SignUp extends Component {
 
                   <View>
                     <Item rounded style={styles.inputGrp}>
-                      <Input
-                        ref={c => (this.textInput = c)}
+                      <TextInput
                         placeholderTextColor="gray"
                         style={styles.input}
                         placeholder="password"
@@ -164,7 +158,11 @@ class SignUp extends Component {
                         active
                         type="MaterialIcons"
                         name="remove-red-eye"
-                        style={{color: '#526373'}}
+                        style={{
+                          color: '#526373',
+                          position: 'absolute',
+                          right: 20,
+                        }}
                         onPress={() =>
                           this.setState({secure: !this.state.secure})
                         }
@@ -226,4 +224,7 @@ const mapStateToProps = state => ({
   userStatus: state.user.userStatus,
 });
 
-export default connect(mapStateToProps, {createUser})(SignUp);
+export default connect(
+  mapStateToProps,
+  {createUser},
+)(SignUp);

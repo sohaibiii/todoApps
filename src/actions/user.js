@@ -151,7 +151,6 @@ export function createUser(
     console.log('hurray');
   },
 ) {
-  console.log('createUser');
   console.log('my c user is here guys', data);
   return dispatch => {
     auth
@@ -177,6 +176,7 @@ export function createUser(
                 ftwo();
               })
               .catch(function(error) {
+              
                 auth.currentUser.delete().then(function() {
                   Toast.showWithGravity(
                     'Error signup again',
